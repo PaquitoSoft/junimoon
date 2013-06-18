@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Jupimoon</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<link rel="stylesheet" href="styles/vendor/jquery-mobile/jquery.mobile-1.3.1.min.css">
+		<link rel="stylesheet" type="text/css" href="styles/junimoon.css">
+
+		<!--
+		<script src="js/vendor/jquery/jquery-1.9.1.js"></script>
+		<script src="js/vendor/jquery-mobile/jquery.mobile-1.3.1.js"></script>
+		-->
+
+		<script type="text/javascript" src="js/vendor/requirejs/require-2.1.6.js" data-main="js/main.js"></script>
+	</head>
+	<body>
+
+		<!-- START: Home page (main search) -->
+		<div id="home-page" data-role="page">
+			<header data-role="header" data-position="fixed">
+				<h1>Search for an artist</h1>
+			</header>
+
+			<article data-role="content">
+				
+				<form class="searchTypeForm">
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+						<input id="searchType-artist" type="radio" name="searchType" value="artist" checked="checked">
+						<label for="searchType-artist">Artists</label>
+
+						<input id="searchType-album" type="radio" name="searchType" value="album">
+						<label for="searchType-album">Albums</label>
+
+						<input id="searchType-track" type="radio" name="searchType" value="track">
+						<label for="searchType-track">Tracks</label>
+					</fieldset>
+				</form>
+
+				<ul id="autocomplete" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="The Police" data-filter-theme="d">
+				</ul>
+			</article>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Search</a></li>
+						<li><a href="#" data-icon="grid">Playlists</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		<!-- END: Home page (main search) -->
+
+
+		<!-- START: Artist page -->
+		<div id="artist-page" data-role="page">
+			<header data-role="header" data-position="fixed">
+				<h1>{{name}}</h1>
+				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
+			</header>
+
+			<div data-role="content">
+				<ul id="albumsList" data-role="listview">
+				</ul>
+			</div>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Search</a></li>
+						<li><a href="#playlists-page" data-icon="grid">Playlists</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		<!-- START: Artist page -->
+
+
+		<!-- START: Album page -->
+		<div id="album-page" data-role="page">
+			<header data-role="header" data-position="fixed">
+				<h1>{{title}}</h1>
+				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
+			</header>
+
+			<div data-role="content">
+				<ul id="tracksList" data-role="listview">
+				</ul>
+			</div>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Home</a></li>
+						<li><a href="#playlists-page" data-icon="grid">Playlist</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		<!-- START: Album page -->
+
+
+		<!-- START: Player page -->
+		<div id="player-page" data-role="page">
+			<header data-role="header" data-position="fixed">
+				<h1>ZZZZ</h1>
+				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
+			</header>
+
+			<div data-role="content" class="player">
+				<div class="artwork">
+					<img src="http://userserve-ak.last.fm/serve/300x300/66072700.png">
+				</div>
+				<div class="info">
+					<div>Give Life Back to Music</div>
+					<div>
+						<span>Daft Punk</span> -
+						<span>Random Access Memories</span>
+					</div>
+				</div>
+				<div class="controls">
+					<div class="time">
+						<!-- TODO -->
+					</div>
+					<div class="actions">
+						<span class="prev">PR</span>
+						<span class="pause">PA</span>
+						<span class="next">NE</span>
+					</div>
+				</div>
+			</div>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Home</a></li>
+						<li><a href="#playlists-page" data-icon="grid">Playlist</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
+		</div>
+		<!-- END: Player page -->
+
+
+		<!-- Client templates -->
+		<script id="artistListItemTpl" type="text/template">
+			<li>
+				<a href="#artist-page?name={{name}}">
+					<h1>{{name}}</h1>
+					<img src="{{image}}" alt="{{name}}">
+				</a>
+			</li>
+		</script>
+
+		<script id="albumListItemTpl" type="text/template">
+			<li>
+				<a href="#tracks-page">
+					<h1>{{title}}</h1>
+					<img src="{{image}}" alt="{{title}}">
+				</a>
+			</li>
+		</script>
+
+		<script id="tacklistItemTpl" type="text/template">
+			<li>
+				<a href="#album-page?album={{albumId}}">
+					<h1>{{title}}</h1>
+					<p>{{artist}} - {{album}}</p>
+				</a>
+			</li>
+		</script>
+
+	</body>
+</html>
