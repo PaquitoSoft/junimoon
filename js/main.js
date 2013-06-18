@@ -10,10 +10,10 @@
 			'jquerymobile': 'vendor/jquery-mobile/jquery.mobile-1.3.1',
 			'handlebars': 'vendor/handlebars/handlebars-1.0.0',
 			'moment': 'vendor/moment/moment-2.0.0'
-		}/*,
+		},
 
 		// Sets the configuration for 3rd party libraries that are not AMD compliant
-		shim: {
+		/*shim: {
 			'backbone': {
 				'deps': ['underscore', 'jquery'],
 				'exports': 'Backbone' // attaches 'Backbone' to the window object
@@ -23,10 +23,18 @@
 			}
 		}
 		*/
+		shim: {
+			'handlebars': {
+				'exports': 'Handlebars'
+			}
+		}
 	});
 
 	// Includes file dependencies
-	require(['jquery', 'jquerymobile', './router', './templates'], function($, jMobile, appRouter, templates) {
+	require(['jquery', 'jquerymobile', 'router', 'templates', 'services/seeker'],
+		function($, jMobile, appRouter, templates, seeker) {
+
+		$('body').removeClass('invisible');
 
 		// Prevent all anchor click handling
 		// $.mobile.linkBindingEnabled = false;
@@ -44,7 +52,7 @@
 		var artistListItemTpl = $('#artistListItemTpl').html(),
 			searchTo;
 
-		$(document).on('pageinit', '#home-page', function() {
+		// $(document).on('pageinit', '#home-page', function() {
 			$('#autocomplete').on('listviewbeforefilter', function(e, data) {
 				var $ul = $(this),
 					$input = $(data.input),
@@ -59,9 +67,9 @@
 					searchTo = setTimeout(function() {
 						$.mobile.loading("show");
 
-						window.lastFm.searchArtist($input.val(), {limit: 5}).done(function(data) {
+						seeker.searchArtist($input.val(), {limit: 5}).done(function(data) {
 							data.forEach(function(val) {
-								templates.render('artistListItemTpl', {
+								html += templates.render('artistListItemTpl', {
 									name: val.name,
 									image: val.images.medium
 								});
@@ -76,7 +84,7 @@
 				}
 
 			});
-		});
+		// });
 
 	});
 

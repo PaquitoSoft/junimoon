@@ -1,4 +1,4 @@
-define('router', ['jquery', './models/models', 'logger'], function($, models, logger) {
+define(['jquery', './models/models', 'logger'], function($, models, logger) {
 	'use strict';
 
 	var ROUTES_PAGE_REGEX = /^#([a-z-A-Z]*)/;
@@ -31,7 +31,8 @@ define('router', ['jquery', './models/models', 'logger'], function($, models, lo
 	var AppRouter = {
 
 		init: function init() {
-			var url, pageName, showFn;
+			var self = this,
+				url, pageName, showFn;
 
 			$(document).bind('pagebeforechange', function(e, data) {
 
@@ -41,15 +42,16 @@ define('router', ['jquery', './models/models', 'logger'], function($, models, lo
 
 					// We are beign asked to load a page by URL, but we only 
 					// want to handle URLs that request the data for a specific category
-					url = $.mobile.path.parseUrl(data.toPage),
+					url = $.mobile.path.parseUrl(data.toPage).hash,
 						pageName = url.match(ROUTES_PAGE_REGEX)[1];
+						// pageName = $.mobile.path.parseUrl(data.toPage);
 
 					if (pageName) {
 
-						showFn = this[routes[pageName]];
+						showFn = self[routes[pageName]];
 
 						if (showFn) {
-							showFn.call(this, parseQueryString(url));
+							showFn.call(self, parseQueryString(url));
 						} else {
 							throw new Error("No show method found for route: " + pageName);
 						}
@@ -116,7 +118,7 @@ define('router', ['jquery', './models/models', 'logger'], function($, models, lo
 				return d.promise();
 			};
 
-			changePage('#artist-page', fn);
+			this.changePage('#artist-page', fn);
 		},
 		showAlbum: function() {
 			// Get album page from DOM

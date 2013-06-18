@@ -1,4 +1,4 @@
-define('models', ['moment', 'seeker', 'jquery', 'logger'], function(m, seeker, $, logger) {
+define(['moment', 'jquery', 'logger'], function(m, $, logger) {
 	'use strict';
 
 	/* ====== Base model definition =======*/
@@ -19,6 +19,7 @@ define('models', ['moment', 'seeker', 'jquery', 'logger'], function(m, seeker, $
 			//	});
 			//	this.images = images;
 			//}
+			this.parseImages(searchResult);
 		} else {
 			this.parent = Model;
 		}
@@ -48,13 +49,13 @@ define('models', ['moment', 'seeker', 'jquery', 'logger'], function(m, seeker, $
 		}
 		return result;
 	};
-	Model.search = function(query, options, callback) {
-		if (typeof options === 'function') {
-			callback = options;
-			options = {};
-		}
-		seeker.search(query, this.constructor, options, callback);
-	};
+	// Model.search = function(query, options, callback) {
+	// 	if (typeof options === 'function') {
+	// 		callback = options;
+	// 		options = {};
+	// 	}
+	// 	seeker.search(query, this.constructor, options, callback);
+	// };
 
 	/* ====== Track model definition ====== */
 	function Track(searchResult) {
@@ -155,14 +156,14 @@ define('models', ['moment', 'seeker', 'jquery', 'logger'], function(m, seeker, $
 	};
 	*/
 
-	Artist.prototype.getAlbums = function(options) {
-		if (typeof options === 'function') {
-			callback = options;
-			options = {};
-		}
+	// Artist.prototype.getAlbums = function(options) {
+	// 	if (typeof options === 'function') {
+	// 		callback = options;
+	// 		options = {};
+	// 	}
 
-		return seeker.getArtistAlbums(this);
-	};
+	// 	return seeker.getArtistAlbums(this);
+	// };
 
 	// Module exports
 	return {

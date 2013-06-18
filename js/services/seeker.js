@@ -1,4 +1,4 @@
-define('seeker', ['jquery', 'logger'], function() {
+define(['jquery', 'moment', 'models/models', 'logger'], function($, moment, models, logger) {
 	'use strict';
 
 	var LASTFM_BASE_URL = 'http://ws.audioscrobbler.com/2.0/?',

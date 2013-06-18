@@ -1,4 +1,4 @@
-define('templates', ['jquery', 'handlebars', 'logger'], function($, H, logger) {
+define(['jquery', 'handlebars', 'logger'], function($, H, logger) {
 	'use strict';
 
 	var templates = {};
@@ -9,5 +9,9 @@ define('templates', ['jquery', 'handlebars', 'logger'], function($, H, logger) {
 		}
 		return templates[tplName](context);
 	}
+
+	return {
+		render: render
+	};
 
 });
