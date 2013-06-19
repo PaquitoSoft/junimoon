@@ -1,15 +1,31 @@
-define(['jquery', './models/models', 'logger'], function($, models, logger) {
+define(['jquery', 'models/models', 'services/seeker', 'controllers/home', 'controllers/artist', 'controllers/album'],
+	function($, models, seeker, homeController, artistController, albumController) {
 	'use strict';
 
 	var ROUTES_PAGE_REGEX = /^#([a-z-A-Z]*)/;
 
-	var routes = {
-		'home-page': 'showHome',
-		'artist-page': 'showArtist',
-		'album-page': 'showAlbum',
-		'playlists-page': 'showPlaylists',
-		'player-page': 'showPlayer',
-		'settings-page': 'showSettings'
+	var config = {
+		'home-page': {
+			handler: 'showHome',
+			controller: homeController
+		},
+		'artist-page': {
+			handler: 'showArtist',
+			controller: artistController
+		},
+		'album-page': {
+			handler: 'showAlbum',
+			controller: albumController
+		},
+		'playlists-page': {
+			handler: 'showPlaylists'
+		},
+		'player-page': {
+			handler: 'showPlayer'
+		},
+		'settings-page': {
+			handler: 'showSettings'
+		}
 	};
 
 	function parseQueryString(qs) {
@@ -34,7 +50,26 @@ define(['jquery', './models/models', 'logger'], function($, models, logger) {
 			var self = this,
 				url, pageName, showFn;
 
+			// $(document).on('pageinit', function(event) {
+			// 	var $page = $(event.target),
+			// 		controller = config[$page.attr('id')].controller;
+
+			// 	if (controller) {
+			// 		controller.init($page);
+			// 	}
+			// });
+
+			// TODO Try to initialize all controllers here?
+			Object.keys(config).forEach(function(key) {
+				var c = config[key].controller;
+				if (c) {
+					c.init($('#' + key));
+				}
+			});
+
 			$(document).bind('pagebeforechange', function(e, data) {
+
+				// When first loaded (home page), data.toPage is the jQuey home-page element
 
 				// We only want to handle changePage() calls where the caller is asking us
 				// to load a page by URL
@@ -44,14 +79,13 @@ define(['jquery', './models/models', 'logger'], function($, models, logger) {
 					// want to handle URLs that request the data for a specific category
 					url = $.mobile.path.parseUrl(data.toPage).hash,
 						pageName = url.match(ROUTES_PAGE_REGEX)[1];
-						// pageName = $.mobile.path.parseUrl(data.toPage);
 
 					if (pageName) {
 
-						showFn = self[routes[pageName]];
+						showFn = self[config[pageName].handler];
 
 						if (showFn) {
-							showFn.call(self, parseQueryString(url));
+							showFn.call(self, parseQueryString($.mobile.path.parseUrl(url.substr(1)).search), config[pageName].controller);
 						} else {
 							throw new Error("No show method found for route: " + pageName);
 						}
@@ -80,53 +114,38 @@ define(['jquery', './models/models', 'logger'], function($, models, logger) {
 			});
 		},
 
-		showHome: function() {},
-		showArtist: function(params) {
-			// Get artist page from DOM
-			// Get album item list template
-			// Show loader
-			// Lookup artist data
-			// Update artist page content
-			// Change page
-			// Hide loader
-
+		showHome: function() {
+			// $.mobile.changePage('#home-page');
+		},
+		showArtist: function(params, controller) {
 			var artist = new models.Artist({
-				externalId: params.externalId,
 				name: params.name
 			});
 
-			var fn = function($page) {
+			// TODO Should receive pageId in params
+			this.changePage('#artist-page', function($page) {
 				var d = $.Deferred();
 
-				artist.getAlbums().done(function(albums) {
-					var html = [];
-
-					$page.find('header h1').text('Daft Punk'); // TODO
-
-					data.forEach(function(album) {
-						html.push(Mustache.render(albumTpl, {
-							title: album.title,
-							image: album.images.medium
-						}));
-					});
-
-					$page.find('#albumsList').html(html.join(''));
-
+				seeker.getArtistAlbums(artist).done(function(albums) {
+					artist.albums = albums;
+					controller.render(artist); // TODO This does not smell quite well
 					d.resolve();
 				});
 
 				return d.promise();
-			};
-
-			this.changePage('#artist-page', fn);
+			});
 		},
-		showAlbum: function() {
-			// Get album page from DOM
-			// Show loader
-			// Lookup album data
-			// Update album page content
-			// Change page
-			// Hide loader
+		showAlbum: function(params, controller) {
+			this.changePage('#album-page', function() {
+				var d = $.Deferred();
+
+				seeker.getAlbumInfo({externalId: params.albumId}).done(function(album) {
+					controller.render(album);
+					d.resolve();
+				});
+
+				return d.promise();
+			});
 		},
 		showPlaylists: function() {
 			// Get playlists page from DOM

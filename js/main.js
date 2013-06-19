@@ -42,50 +42,8 @@
 		// Disabling this will prevent jQuery mobile from handling hash changes
 		// $.mobile.hashListeningEnabled = false;
 
-		// Instantiates our Backbone router
-		// this.router = new AppRouter();
+		// Start application router
 		appRouter.init();
-
-
-
-		/* TODO This should not be here */
-		var artistListItemTpl = $('#artistListItemTpl').html(),
-			searchTo;
-
-		// $(document).on('pageinit', '#home-page', function() {
-			$('#autocomplete').on('listviewbeforefilter', function(e, data) {
-				var $ul = $(this),
-					$input = $(data.input),
-					value = $input.val(),
-					html = '';
-
-				$ul.html('');
-
-				if (value && value.length > 2) {
-
-					clearTimeout(searchTo);
-					searchTo = setTimeout(function() {
-						$.mobile.loading("show");
-
-						seeker.searchArtist($input.val(), {limit: 5}).done(function(data) {
-							data.forEach(function(val) {
-								html += templates.render('artistListItemTpl', {
-									name: val.name,
-									image: val.images.medium
-								});
-
-							});
-							$ul.html(html);
-							$ul.listview('refresh');
-							$ul.trigger('updatelayout');
-							$.mobile.loading("hide");
-						});
-					}, 300);
-				}
-
-			});
-		// });
-
 	});
 
 }());

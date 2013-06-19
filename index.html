@@ -57,59 +57,19 @@
 
 
 		<!-- START: Artist page -->
-		<div id="artist-page" data-role="page">
-			<header data-role="header" data-position="fixed">
-				<h1>{{name}}</h1>
-				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
-			</header>
-
-			<div data-role="content">
-				<ul id="albumsList" data-role="listview">
-				</ul>
-			</div>
-
-			<footer data-role="footer" data-position="fixed">
-				<nav data-role="navbar">
-					<ul>
-						<li><a href="#home-page" data-icon="home">Search</a></li>
-						<li><a href="#playlists-page" data-icon="grid">Playlists</a></li>
-						<li><a href="#player-page" data-icon="info">Player</a></li>
-					</ul>
-				</nav>
-			</footer>
-		</div>
+		<div id="artist-page" data-role="page"></div>
 		<!-- START: Artist page -->
 
 
 		<!-- START: Album page -->
-		<div id="album-page" data-role="page">
-			<header data-role="header" data-position="fixed">
-				<h1>{{title}}</h1>
-				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
-			</header>
-
-			<div data-role="content">
-				<ul id="tracksList" data-role="listview">
-				</ul>
-			</div>
-
-			<footer data-role="footer" data-position="fixed">
-				<nav data-role="navbar">
-					<ul>
-						<li><a href="#home-page" data-icon="home">Home</a></li>
-						<li><a href="#playlists-page" data-icon="grid">Playlist</a></li>
-						<li><a href="#player-page" data-icon="info">Player</a></li>
-					</ul>
-				</nav>
-			</footer>
-		</div>
+		<div id="album-page" data-role="page"></div>
 		<!-- START: Album page -->
 
 
 		<!-- START: Player page -->
 		<div id="player-page" data-role="page">
 			<header data-role="header" data-position="fixed">
-				<h1>ZZZZ</h1>
+				<h1>title</h1>
 				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
 			</header>
 
@@ -118,10 +78,10 @@
 					<img src="http://userserve-ak.last.fm/serve/300x300/66072700.png">
 				</div>
 				<div class="info">
-					<div>Give Life Back to Music</div>
+					<div>{{title}}</div>
 					<div>
-						<span>Daft Punk</span> -
-						<span>Random Access Memories</span>
+						<span>{{artist}}</span> -
+						<span>{{album}}</span>
 					</div>
 				</div>
 				<div class="controls">
@@ -161,7 +121,7 @@
 
 		<script id="albumListItemTpl" type="text/template">
 			<li>
-				<a href="#tracks-page">
+				<a href="#album-page?albumId={{externalId}}">
 					<h1>{{title}}</h1>
 					<img src="{{image}}" alt="{{title}}">
 				</a>
@@ -175,6 +135,66 @@
 					<p>{{artist}} - {{album}}</p>
 				</a>
 			</li>
+		</script>
+
+		<script id="artistPageContentTpl" type="text/template">
+			<header data-role="header" data-position="fixed">
+				<h1>{{name}}</h1>
+				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
+			</header>
+
+			<div data-role="content">
+				<ul id="albumsList" data-role="listview">
+					{{#each albums}}
+						<li>
+							<a href="#album-page?albumId={{externalId}}">
+								<h1>{{title}}</h1>
+								<img src="{{images.large}}" alt="{{title}}">
+							</a>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Search</a></li>
+						<li><a href="#playlists-page" data-icon="grid">Playlists</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
+		</script>
+
+		<script id="albumPageContentTpl" type="text/template">
+			<header data-role="header" data-position="fixed">
+				<h1>{{title}}</h1>
+				<a href="#" data-icon="arrow-l" data-iconpos="notext"></a>
+			</header>
+
+			<div data-role="content">
+				<ul id="tracksList" data-role="listview">
+					{{#each tracks}}
+						<li>
+							<a href="#album-page?album={{albumId}}">
+								<h1>{{title}}</h1>
+								<p>{{artist}} - {{album}}</p>
+							</a>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
+
+			<footer data-role="footer" data-position="fixed">
+				<nav data-role="navbar">
+					<ul>
+						<li><a href="#home-page" data-icon="home">Home</a></li>
+						<li><a href="#playlists-page" data-icon="grid">Playlist</a></li>
+						<li><a href="#player-page" data-icon="info">Player</a></li>
+					</ul>
+				</nav>
+			</footer>
 		</script>
 
 	</body>

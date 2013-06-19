@@ -1,6 +1,8 @@
 define(['jquery', 'moment', 'models/models', 'logger'], function($, moment, models, logger) {
 	'use strict';
 
+	// TODO User a caching system to store requests
+
 	var LASTFM_BASE_URL = 'http://ws.audioscrobbler.com/2.0/?',
 		LASTFM_API_KEY = 'b57b804c3dc371d824c9adac24b7e0a2';
 
@@ -66,10 +68,11 @@ define(['jquery', 'moment', 'models/models', 'logger'], function($, moment, mode
 		}
 
 		$.getJSON(LASTFM_BASE_URL + $.param(reqOptions)).success(function(data) {
-			var rawData = data.topalbums.album;
+			var rawData;
 			if (data.error) {
 				d.reject(new Error(data.message));
 			} else {
+				rawData = data.topalbums.album;
 				if (rawData) {
 					if (!$.isArray(rawData)) {
 						rawData = [rawData];
@@ -107,13 +110,14 @@ define(['jquery', 'moment', 'models/models', 'logger'], function($, moment, mode
 
 		$.getJSON(LASTFM_BASE_URL + $.param(reqOptions)).success(function(data) {
 			if (data.error) {
-				$log.info('Lastfm get album info error: ', data);
+				logger.error('Lastfm get album info error: ', data);
 				d.reject(new Error(data.message));
 			} else {
+				logger.info(new models.Album(data.album));
 				d.resolve(new models.Album(data.album));
 			}
 		}).error(function(data) {
-			$log.info('Lastfm get album info error: ', data);
+			logger.error('Lastfm get album info error: ', data);
 			d.reject(new Error(data.message));
 		});
 
