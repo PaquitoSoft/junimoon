@@ -1,3 +1,4 @@
+/*
 .invisible {
 	visibility: hidden;
 }
@@ -8,4 +9,13 @@
 
 .player {
 	text-align: center;
+}
+*/
+#searchResults li {
+	cursor: pointer;
+}
+#searchResults li.thumb.big > img {
+	min-width: 126px;
+	/*width: auto;*/
+	height: auto;
 }

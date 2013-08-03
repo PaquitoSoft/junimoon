@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Jupimoon</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<link rel="stylesheet" href="components/lungo/lungo.css">
+		<link rel="stylesheet" href="components/lungo/lungo.icon.css">
+		<link rel="stylesheet" href="components/lungo/lungo.theme.css">
+		<link rel="stylesheet" type="text/css" href="styles/junimoon.css">
+		<script src="components/quojs/quo.debug.js"></script>
+		<script src="components/lungo/lungo.js"></script>
+	</head>
+	<body>
+
+		<!--
+		<section id="main" data-aside="features">
+			<header data-title="Options">
+				<nav>
+					<button data-view-aside="features" data-icon="menu"></button>
+				</nav>
+			</header>
+			<article id="main-article">
+				Your content
+			<footer>
+				<nav>
+					<a href="#" data-icon="menu" class="active"></a>
+					<a href="#" data-icon="share"></a>
+					<a href="#" data-icon="user"></a>
+					<a href="#" data-icon="users"></a>
+				</nav>
+			</footer>
+		</section>
+		-->
+
+		<!--
+		<aside id="features">
+			<header data-title="Options"></header>
+			<article class="active">
+				Aside content
+			</article>
+		</aside>
+		-->
+
+		<!--
+		<section id="main">
+			<header data-title="Options"></header>
+			<article id="main-article" class="active">
+				Your content
+				<button class="button" data-view-article="dummy-article" data-icon="forward"></button>
+			</article>
+			<article id="dummy-article">
+				<button class="button" data-view-article="main-article" data-icon="home" data-label="Home"></button>
+			</article>
+			<footer>
+				<nav>
+					<a href="#" data-icon="menu" class="active"></a>
+					<a href="#" data-icon="share"></a>
+					<a href="#" data-icon="user"></a>
+					<a href="#" data-icon="users"></a>
+				</nav>
+			</footer>
+		</section>
+
+		<section id="dummy">
+			<header data-back="home"></header>
+			<article id="dummy-home" class="active">
+				Sames a header:
+				<button data-view-section="back" data-icon="left" data-label="Return to previous page"></button>
+			</article>
+		</section>
+		-->
+
+		<!-- NAV Example
+		<section id="main">
+			<header data-title="NAV exampke">
+				<nav class="on-left">
+					<button data-view-article="main-article" data-label="Home"></button>
+				</nav>
+				<nav class="on-right">
+					<button data-view-section="dummy" data-label="Section"></button>
+				</nav>
+			</header>
+			<article id="main-article" class="active">
+				Your content
+				<button class="button" data-view-article="dummy-article" data-icon="forward"></button>
+			</article>
+			<article id="dummy-article">
+				<button class="button" data-view-article="main-article" data-icon="home" data-label="Home"></button>
+			</article>
+			<footer>
+				<nav>
+					<a href="#" data-icon="menu" class="active"></a>
+					<a href="#" data-icon="share"></a>
+					<a href="#" data-icon="user"></a>
+					<a href="#" data-icon="users"></a>
+				</nav>
+			</footer>
+		</section>
+
+		<section id="dummy">
+			<header data-back="home"></header>
+			<article id="dummy-home" class="active">
+				Sames a header:
+				<button data-view-section="back" data-icon="left" data-label="Return to previous page"></button>
+			</article>
+		</section>
+		-->
+
+		<!-- GROUP example
+		<section id="main">
+			<header data-title="groupbar" class="extended"></header>
+			<nav data-control="groupbar">
+				<a href="#" data-view-article="article-1" class="active">Art-1</a>
+				<a href="#" data-view-article="article-2">Art-2</a>
+			</nav>
+			<article id="article-1" class="active">This is the first article</article>
+			<article id="article-2">This is the second article</article>
+		</section>
+		-->
+
+		<!-- MENU example 
+		<section id="menu" data-transition="slide">
+			<header data-title="data-control=menu">
+				<nav>
+					<a href="#" data-view-menu="options" data-icon="menu"></a>
+				</nav>
+				<nav class="on-right">
+					<a href="#" data-view-menu="options-icons" data-icon="grid"></a>
+				</nav>
+			</header>
+			<nav id="options" data-control="menu">
+				<a href="#" data-view-article="home-menu" data-icon="menu">Home</a>
+				<a href="#" data-view-article="explore-menu" data-icon="globe">Explore</a>
+				<a href="#" data-view-article="activity-menu" data-icon="comments">Activity</a>
+				<a href="#" data-view-article="profile-menu" data-icon="user">Profile</a>
+			</nav>
+			<article id="home-menu" class="active">HOME</article>
+			<article id="explore-menu">EXPLORE</article>
+			<article id="activity-menu">ACTIVITY</article>
+			<article id="profile-menu">PROFILE</article>
+		</section>
+		-->
+
+		<!-- BINDINGS example
+		<section id="main">
+			<header data-title="Default title"></header>
+			<article id="first" class="active">
+				<button data-view-article="second" data-title="Second Article">Go to second</button>
+			</article>
+			<article id="second">
+				<button data-view-article="first" data-title="First Article">Go to first</button>
+			</article>
+		</section>
+		
+		<section id="main">
+			<header data-title="Title of section">
+				<nav class="on-right">
+					<button data-article="second" data-view-article="first" data-icon="left">Left</button>
+					<button data-article="first" data-view-article="second" data-icon="right">Right</button>
+				</nav>
+			</header>
+			<article id="first" class="active">First article</article>
+			<article id="second">Second article</article>
+		</section>
+		-->
+
+		<!-- FORMS example
+		<section id="main">
+			<header>FORM example</header>
+			<article id="art-1">
+				<div class="form">
+					<fieldset>
+						<label>Input</label>
+						<input type="text" placeholder="value">
+
+						<label>Input styles</label>
+						<input type="text" placeholder="value on right" class="text align_right error">
+
+						<label>Select</label>
+						<label class="select">
+							<select>
+								<option value="1">HTML5</option>
+								<option value="2">CSS3</option>
+								<option value="3">Javascript</option>
+							</select>
+						</label>
+
+						<label>Input date</label>
+						<input type="date" class="align_right" placeholder="Select finish" value="10/04/1980">
+
+						<label class="anchor">Example of touch checkbox</label>
+						<input type="checkbox" class="inline right">
+					</fieldset>
+				</div>
+			</article>
+		</section>
+		-->
+
+		<!-- LISTS example
+		<section id="main">
+			<header data-title="Lists example"></header>
+			<article id="l-art-1">
+				<div class="list">
+				<ul>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li class="thumb big">
+						<img src="http://cdn.tapquo.com/lungo/icon-144.png"/>
+						<div>
+							<div class="on-right text tiny">Lore Ipsum</div>
+							<strong>Title</strong>
+							<span class="text tiny opacity">lore ipsum</span>
+							<small>
+								Lore ipsum dolor sit amet, consectetur adipiscing elit. Neque, aliquam, nisi commodi blanditiis.
+							</small>
+						</div>
+						
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+					<li>
+						<strong>Title</strong>
+						<small>Description</small>
+					</li>
+				</ul>
+				</div>
+			</article>
+		</section>
+		-->
+
+		<section id="home">
+			<header data-title="Junimoon">
+				<!--
+				<nav class="on-left">
+					<button data-article="artist-detail" data-view-article="search" data-label="Home"></button>	
+				</nav>
+				<nav class="on-right">
+					<button data-view-article="artist-detail" data-label="Artist"></button>
+				</nav>
+				-->
+			</header>
+
+			<article id="search" class="active">
+				<div class="form">
+					<fieldset data-icon="search">
+						<input id="searchTerm" type="search" placeholder="Type your search...">
+					</fieldset>
+				</div>
+				<div id="searchResults" class="list">
+					<!--
+					<li class="thumb big">
+						<img src="http://cdn.tapquo.com/lungo/icon-144.png"/>
+						<div>
+							<div class="on-right text tiny">Lore Ipsum</div>
+							<strong>Title</strong>
+							<span class="text tiny opacity">lore ipsum</span>
+							<small>
+								Lore ipsum dolor sit amet, consectetur adipiscing elit. Neque, aliquam, nisi commodi blanditiis.
+							</small>
+						</div>
+					</li>
+					<li class="thumb big">
+						<img src="http://cdn.tapquo.com/lungo/icon-144.png"/>
+						<div>
+							<div class="on-right text tiny">Lore Ipsum</div>
+							<strong>Title</strong>
+							<span class="text tiny opacity">lore ipsum</span>
+							<small>
+								Lore ipsum dolor sit amet, consectetur adipiscing elit. Neque, aliquam, nisi commodi blanditiis.
+							</small>
+						</div>
+					</li>
+					<li class="thumb big">
+						<img src="http://cdn.tapquo.com/lungo/icon-144.png"/>
+						<div>
+							<div class="on-right text tiny">Lore Ipsum</div>
+							<strong>Title</strong>
+							<span class="text tiny opacity">lore ipsum</span>
+							<small>
+								Lore ipsum dolor sit amet, consectetur adipiscing elit. Neque, aliquam, nisi commodi blanditiis.
+							</small>
+						</div>
+					</li>
+					-->
+				</div>
+			</article>
+
+			<article id="artist-detail">
+				This is the artist detail page
+			</article>
+
+			<footer>
+				<nav>
+					<a href="#" data-icon="menu" class="active">Home</a>
+					<a href="#" data-icon="share">Playlist</a>
+					<a href="#" data-icon="user">Player</a>
+					<a href="#" data-icon="globe">Settings</a>
+				</nav>
+			</footer>
+		</section>
+
+		<!-- Client templates -->
+		<script id="artistsListTpl" type="text/template">
+			{{#each artists}}
+				<li class="thumb big _artist" data-extId="{{externalId}}">
+					<img src="{{images.large}}"/>
+					<div>
+						<strong class="_artistName">{{name}}</strong>
+					</div>
+				</li>
+			{{/each}}
+		</script>
+
+		<script id="albumsListTpl" type="text/template">
+			{{#each albums}}
+				<li class="thumb big _album" data-extId="{{externalId}}">
+					<img src="{{images.large}}"/>
+					<div>
+						<strong class="_albumTitle">{{title}}</strong>
+						<small class="_artistName">
+							{{artist.name}}
+						</small>
+					</div>
+				</li>
+			{{/each}}
+		</script>
+
+		<script id="tracksListTpl" type="text/template">
+			{{#each tracks}}
+				<li class="thumb big _track" data-extId="{{externalId}}">
+					<img src="{{../images.large}}"/>
+					<div>
+						<div class="on-right text tiny">{{duration}}</div>
+						<strong class="_trackTitle">{{title}}</strong>
+						<span class="text tiny opacity">{{artist}}</span>
+						<small>{{album}} ({{../releaseYear}})</small>
+					</div>
+				</li>
+			{{/each}}
+		</script>
+
+		<!--
+		<script src="components/zepto.min.js"></script>
+		<script src="js/app.js"></script>
+		-->
+		<script type="text/javascript" src="js/vendor/requirejs/require-2.1.6.js" data-main="js/app.js"></script>
+
+	</body>
+</html>

@@ -64,6 +64,9 @@ define(['moment', 'jquery', 'logger'], function(m, $, logger) {
 		this.artist = searchResult.artist;
 		this.album = searchResult.album;
 		// this.duration = searchResult.duration; // TODO
+		if (searchResult.duration) {
+			this.duration = moment().startOf('day').add('s', searchResult.duration).format('mm:ss');
+		}
 		if (!this.externalId) {
 			this.externalId = 'lfm|#|' + this.title + '|#|' + this.artist;
 		}
@@ -89,6 +92,7 @@ define(['moment', 'jquery', 'logger'], function(m, $, logger) {
 			rawTracks.forEach(function(t) {
 				albumTracks.push(new Track({
 					externalId: t.mbid,
+					duration: t.duration,
 					title: t.name,
 					artist: t.artist.name,
 					album: this.title

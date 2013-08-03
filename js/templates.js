@@ -5,6 +5,7 @@ define(['jquery', 'handlebars', 'logger'], function($, H, logger) {
 
 	function render(tplName, context) {
 		if (!templates[tplName]) {
+			// TODO Check that template exists in the document before using it (dev flow problem)
 			templates[tplName] = H.compile($('#' + tplName).html());
 		}
 		return templates[tplName](context);
